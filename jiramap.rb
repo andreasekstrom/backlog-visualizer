@@ -27,16 +27,56 @@ def idea_color(item)
 end
 
 def should_be_included(item)
-	true
+	item['fields']['issuetype']['name'] != "Technical task"
+end
+
+def existing_idea?(item, existing_jira_issues)
+	key = item['key']
+	p key
+	existing_jira_issues.include? key
+end
+
+def scan_existing_jira_issues_in_map(filename)
+	issues = []
+	File.readlines(filename).each do |line| 
+		match = line.match(/#{JIRA_ISSUE_LINK_REGEXP}\/(.*)\"/)
+		issues << match[1] if match
+	end
+	issues
+end
+
+def update_existing(mindmap, item)
+	#p "in loop with mindmap = #{mindmap}"
+	mindmap.each_value do |idea|
+		if idea['title'].match(/#{JIRA_ISSUE_LINK_REGEXP}\/#{item['key']}$/)
+			p "Found #{item['key']}"
+			idea['title'] = idea_title(item)
+			idea['attr'] = {
+                    "style" => {
+                      "background" => idea_color(item)
+                    }
+                  }
+    end
+		
+		if idea.has_key? 'ideas'
+			update_existing(idea['ideas'], item)
+	 	end
+	
+	end
 end
 
 JIRA_WEB_URL="https://services.ucr.uu.se/jira/browse"
+JIRA_ISSUE_LINK_REGEXP = Regexp.escape(JIRA_WEB_URL)
 
 jira = JSON.parse(File.read('search_all.json'))
-mindmap = JSON.parse(File.read('new_aurff.mup'))
+mindmap = JSON.parse(File.read('aurff_new2.mup'))
+
 jira['issues'].each_with_index do |item, i|
-	puts "#{i}: #{item['fields']['summary']}"
+	p "#{i}: #{item['fields']['summary']}"
 end
+
+existing_jira_issues = scan_existing_jira_issues_in_map('aurff_new2.mup')
+p existing_jira_issues
 
 ID_START=2000
 mindmap['ideas'][ID_START.to_s] = {
@@ -44,13 +84,18 @@ mindmap['ideas'][ID_START.to_s] = {
                       "id" => ID_START
                     }
 new_issues = mindmap['ideas'][ID_START.to_s]['ideas'] = {}
+
 jira['issues'].each_with_index do |item, i|
 	if should_be_included(item)
-	 	new_issues[(i+ID_START+1).to_s] = { 'title' => idea_title(item), 'id' => i+ID_START+1, "attr" => {
+		if existing_idea?(item, existing_jira_issues)
+			update_existing(mindmap['ideas'], item)
+		else
+	 		new_issues[(i+ID_START+1).to_s] = { 'title' => idea_title(item), 'id' => i+ID_START+1, "attr" => {
                     "style" => {
                       "background" => idea_color(item)
                     }
                   }}
+        end
     end
 end
                   
