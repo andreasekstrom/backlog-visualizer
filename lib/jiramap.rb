@@ -29,9 +29,9 @@ JIRA_WEB_URL="https://services.ucr.uu.se/jira/browse"
 JIRA_ISSUE_LINK_REGEXP = Regexp.escape(JIRA_WEB_URL)
 
 jira_issues_hash = JSON.parse(File.read('search_all.json'))
-mindmap = Mindmap.new JSON.parse(File.read('aurff_new2.mup'))
 
-idea_formatter = IdeaFormatter.new [['status', 'Closed', '#008000']]
+idea_formatter = IdeaFormatter.new [['status', 'Closed', '#008000'], ['versions', '1.0', '#FF6666']]
+mindmap = Mindmap.new(JSON.parse(File.read('aurff_new2.mup')), idea_formatter)
 
 jira_issues = []
 

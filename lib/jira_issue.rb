@@ -24,7 +24,7 @@ class JiraIssue
 	end
 
 	def versions
-		@json['fields']['fixVersions']
+		@json['fields']['fixVersions'].collect { |version| version['name'] }
 	end
 
 	def should_be_included?

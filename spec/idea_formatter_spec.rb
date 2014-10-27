@@ -19,15 +19,26 @@ describe IdeaFormatter do
 
 	it "can be configured for label" do
 		issue = double(labels: ["a", "b", "c"])
+		issue2 = double(labels: ["other", "stuff"])
 		idea_formatter = IdeaFormatter.new [['labels', 'b', '#008000']]
 		expect(idea_formatter.for_issue(issue)).to eq('#008000')
+		expect(idea_formatter.for_issue(issue2)).to eq('#E0E0E0')
 	end
 
 	it "can be configured for version" do
 		issue = double(versions: ['1.0','1.1'])
 		issue2 = double(versions: ['1.2'])
-		idea_formatter = IdeaFormatter.new [['version', '1.0', '#008000']]
+		idea_formatter = IdeaFormatter.new [['versions', '1.0', '#008000']]
 		expect(idea_formatter.for_issue(issue)).to eq('#008000')
 		expect(idea_formatter.for_issue(issue2)).to eq('#E0E0E0')
+	end
+
+	it "bases formatting on first match rule" do
+		issue = double(versions: ['1.0','1.1'], status: "Closed")
+		issue2 = double(versions: ['other'], status: "Closed")
+		
+		idea_formatter = IdeaFormatter.new [['versions', '1.0', '1'], ['status', 'Closed', '2']]
+		expect(idea_formatter.for_issue(issue)).to eq('1')
+		expect(idea_formatter.for_issue(issue2)).to eq('2')
 	end
 end

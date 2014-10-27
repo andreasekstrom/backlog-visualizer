@@ -19,7 +19,7 @@ class IdeaFormatter
 		issue.labels.include? value
 	end
 
-	def version(issue, value)
+	def versions(issue, value)
 		issue.versions.include? value
 	end
 

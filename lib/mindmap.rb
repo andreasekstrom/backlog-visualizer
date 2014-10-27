@@ -41,20 +41,20 @@ class Mindmap
 		
 			if idea['title'] && idea['title'].match(/#{JIRA_ISSUE_LINK_REGEXP}\/#{item.key}$/)
 				
-				if (!idea.has_key?('ideas') || idea['ideas'].empty?) && remove_filter
-					p "Remove - check #{item.key}"
-					if item.status == "Closed" 
-						mindmap.delete key
-						p "Removed #{item.key}"
-					end
-				else 
-					idea['title'] = item.title
-					idea['attr'] = {
-	                    "style" => {
-	                      "background" => @idea_formatter.for_issue(item)
-	                    }
-	                  }
-	      		end
+				# if (!idea.has_key?('ideas') || idea['ideas'].empty?) && remove_filter
+				# 	p "Remove - check #{item.key}"
+				# 	if item.status == "Closed" 
+				# 		mindmap.delete key
+				# 		p "Removed #{item.key}"
+				# 	end
+				# else 
+				idea['title'] = item.title
+				idea['attr'] = {
+	            	"style" => {
+                      "background" => @idea_formatter.for_issue(item)
+                    }
+                  }
+	      		
 	    	end
 		end
 	end

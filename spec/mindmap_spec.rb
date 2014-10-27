@@ -18,8 +18,7 @@ describe Mindmap do
   end
 
   it "can add an idea to Uncategorized" do
-  	item = double(title: "Testing", color: "n/a")
-  	#expect(dbl).to receive(:foo).and_return(14)
+  	item = double(title: "Testing")
   	mindmap = Mindmap.new JSON.parse(File.read('spec/test.mup'))
   	mindmap.add_to_uncategorized_ideas item
   	expect(mindmap.uncategorized_ideas.length).to eq 1
