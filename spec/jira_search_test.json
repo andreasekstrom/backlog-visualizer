@@ -1,0 +1,189 @@
+{
+  "expand": "schema,names",
+  "startAt": 0,
+  "maxResults": 50,
+  "total": 1,
+  "issues": [
+    {
+      "expand": "editmeta,renderedFields,transitions,changelog,operations",
+      "id": "11311",
+      "self": "https://jira-url.com/jira/rest/api/2/issue/11311",
+      "key": "TEST-21",
+      "fields": {
+        "progress": {
+          "progress": 0,
+          "total": 0
+        },
+        "summary": "Om jag sparar apelsiner så lagras päron",
+        "issuetype": {
+          "self": "https://jira-url.com/jira/rest/api/2/issuetype/1",
+          "id": "1",
+          "description": "A problem which impairs or prevents the functions of the product.",
+          "iconUrl": "https://jira-url.com/jira/images/icons/issuetypes/bug.png",
+          "name": "Bug",
+          "subtask": false
+        },
+        "votes": {
+          "self": "https://jira-url.com/jira/rest/api/2/issue/TEST-21/votes",
+          "votes": 0,
+          "hasVoted": false
+        },
+        "customfield_10876": null,
+        "customfield_10875": null,
+        "resolution": {
+          "self": "https://jira-url.com/jira/rest/api/2/resolution/1",
+          "id": "1",
+          "description": "A fix for this issue is checked into the tree and tested.",
+          "name": "Fixed"
+        },
+        "fixVersions": [
+          {
+            "self": "https://jira-url.com/jira/rest/api/2/version/12404",
+            "id": "12404",
+            "description": "First",
+            "name": "1.0",
+            "archived": false,
+            "released": false
+          }
+        ],
+        "resolutiondate": "2010-02-05T13:50:25.000+0100",
+        "timespent": null,
+        "customfield_10381": null,
+        "reporter": {
+          "self": "https://jira-url.com/jira/rest/api/2/user?username=a.user%40ucr.uu.se",
+          "name": "a.user@ucr.uu.se",
+          "emailAddress": "a.user@ucr.uu.se",
+          "avatarUrls": {
+            "16x16": "https://jira-url.com/jira/secure/useravatar?size=xsmall&ownerId=a.user%40ucr.uu.se&avatarId=10283",
+            "24x24": "https://jira-url.com/jira/secure/useravatar?size=small&ownerId=a.user%40ucr.uu.se&avatarId=10283",
+            "32x32": "https://jira-url.com/jira/secure/useravatar?size=medium&ownerId=a.user%40ucr.uu.se&avatarId=10283",
+            "48x48": "https://jira-url.com/jira/secure/useravatar?ownerId=a.user%40ucr.uu.se&avatarId=10283"
+          },
+          "displayName": "Testuser",
+          "active": true
+        },
+        "aggregatetimeoriginalestimate": null,
+        "created": "2008-02-19T09:45:44.000+0100",
+        "updated": "2014-04-22T09:56:24.000+0200",
+        "customfield_10041": null,
+        "description": "Om jag sparar apelsiner så lagras päron",
+        "priority": {
+          "self": "https://jira-url.com/jira/rest/api/2/priority/3",
+          "iconUrl": "https://jira-url.com/jira/images/icons/priorities/major.png",
+          "name": "Major",
+          "id": "3"
+        },
+        "customfield_10043": null,
+        "duedate": null,
+        "customfield_10020": null,
+        "customfield_10040": null,
+        "issuelinks": [
+          {
+            "id": "10094",
+            "self": "https://jira-url.com/jira/rest/api/2/issueLink/10094",
+            "type": {
+              "id": "10000",
+              "name": "Dependency",
+              "inward": "blocks",
+              "outward": "depends on",
+              "self": "https://jira-url.com/jira/rest/api/2/issueLinkType/10000"
+            },
+            "inwardIssue": {
+              "id": "11309",
+              "key": "TEST-19",
+              "self": "https://jira-url.com/jira/rest/api/2/issue/11309",
+              "fields": {
+                "summary": "Meta bug Om jag sparar apelsiner så lagras päron",
+                "status": {
+                  "self": "https://jira-url.com/jira/rest/api/2/status/6",
+                  "description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",
+                  "iconUrl": "https://jira-url.com/jira/images/icons/statuses/closed.png",
+                  "name": "Closed",
+                  "id": "6"
+                },
+                "priority": {
+                  "self": "https://jira-url.com/jira/rest/api/2/priority/3",
+                  "iconUrl": "https://jira-url.com/jira/images/icons/priorities/major.png",
+                  "name": "Major",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://jira-url.com/jira/rest/api/2/issuetype/1",
+                  "id": "1",
+                  "description": "A problem which impairs or prevents the functions of the product.",
+                  "iconUrl": "https://jira-url.com/jira/images/icons/issuetypes/bug.png",
+                  "name": "Bug",
+                  "subtask": false
+                }
+              }
+            }
+          }
+        ],
+        "watches": {
+          "self": "https://jira-url.com/jira/rest/api/2/issue/TEST-21/watchers",
+          "watchCount": 0,
+          "isWatching": false
+        },
+        "customfield_10000": 1311.0,
+        "subtasks": [],
+        "customfield_10270": null,
+        "status": {
+          "self": "https://jira-url.com/jira/rest/api/2/status/6",
+          "description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",
+          "iconUrl": "https://jira-url.com/jira/images/icons/statuses/closed.png",
+          "name": "Closed",
+          "id": "6"
+        },
+        "labels": [
+          "fruit",
+          "other"
+        ],
+        "workratio": -1,
+        "assignee": null,
+        "aggregatetimeestimate": null,
+        "project": {
+          "self": "https://jira-url.com/jira/rest/api/2/project/10000",
+          "id": "10000",
+          "key": "TEST",
+          "name": "Test",
+          "avatarUrls": {
+            "16x16": "https://jira-url.com/jira/secure/projectavatar?size=xsmall&pid=10000&avatarId=10011",
+            "24x24": "https://jira-url.com/jira/secure/projectavatar?size=small&pid=10000&avatarId=10011",
+            "32x32": "https://jira-url.com/jira/secure/projectavatar?size=medium&pid=10000&avatarId=10011",
+            "48x48": "https://jira-url.com/jira/secure/projectavatar?pid=10000&avatarId=10011"
+          }
+        },
+        "versions": [
+          {
+            "self": "https://jira-url.com/jira/rest/api/2/version/10001",
+            "id": "10001",
+            "name": "1.1",
+            "archived": false,
+            "released": false
+          }
+        ],
+        "customfield_10170": "11555",
+        "environment": "Operating System: Linux\nPlatform: PC",
+        "timeestimate": null,
+        "aggregateprogress": {
+          "progress": 0,
+          "total": 0
+        },
+        "lastViewed": "2014-10-26T01:20:20.612+0200",
+        "customfield_10050": null,
+        "components": [
+          {
+            "self": "https://jira-url.com/jira/rest/api/2/component/10000",
+            "id": "10000",
+            "name": "TestComponent",
+            "description": "This is a test component in the test product database.  This ought to be blown away and replaced with real stuff in a finished installation of Bugzilla."
+          }
+        ],
+        "customfield_10010": null,
+        "timeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "customfield_10070": "1928"
+      }
+    }
+  ]
+}
