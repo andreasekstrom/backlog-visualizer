@@ -1,6 +1,7 @@
 #!/usr/bin/ruby
 
 require 'json'
+require 'yaml'
 require_relative 'mindmap'
 require_relative 'jira_issue'
 require_relative 'idea_formatter'
@@ -23,14 +24,17 @@ def scan_existing_jira_issues_in_map(filename)
 	issues
 end
 
-remove_filter = true
+raise "File: settings.yml is missing." unless File.exists?("settings.yml") 
+settings = YAML.load_file("settings.yml")
 
-JIRA_WEB_URL="https://services.ucr.uu.se/jira/browse"
+JIRA_WEB_URL=settings['jira']['weburl']
 JIRA_ISSUE_LINK_REGEXP = Regexp.escape(JIRA_WEB_URL)
 
-jira_issues_hash = JSON.parse(File.read('search_all.json'))
+remove_filter = true
 
-idea_formatter = IdeaFormatter.new [['status', 'Closed', '#008000'], ['versions', '1.0', '#FF6666']]
+jira_issues_hash = JSON.parse(File.read(settings['jira']['search_filename']))
+
+idea_formatter = IdeaFormatter.new settings['idea_formatter']
 mindmap = Mindmap.new(JSON.parse(File.read('aurff_new2.mup')), idea_formatter)
 
 jira_issues = []

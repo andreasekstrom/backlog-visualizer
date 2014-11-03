@@ -12,7 +12,7 @@ describe IdeaFormatter do
 	it "can be configured for status" do
 		issue = double(status: "Closed")
 		issue2 = double(status: "Other")
-		idea_formatter = IdeaFormatter.new [['status', 'Closed', '#008000']]
+		idea_formatter = IdeaFormatter.new [{'key' => 'status', 'value' => 'Closed', 'color' => '#008000'}]
 		expect(idea_formatter.for_issue(issue)).to eq('#008000')
 		expect(idea_formatter.for_issue(issue2)).to eq('#E0E0E0')
 	end
@@ -20,7 +20,7 @@ describe IdeaFormatter do
 	it "can be configured for label" do
 		issue = double(labels: ["a", "b", "c"])
 		issue2 = double(labels: ["other", "stuff"])
-		idea_formatter = IdeaFormatter.new [['labels', 'b', '#008000']]
+		idea_formatter = IdeaFormatter.new [{'key' => 'labels', 'value' => 'b', 'color' => '#008000'}]
 		expect(idea_formatter.for_issue(issue)).to eq('#008000')
 		expect(idea_formatter.for_issue(issue2)).to eq('#E0E0E0')
 	end
@@ -28,7 +28,7 @@ describe IdeaFormatter do
 	it "can be configured for version" do
 		issue = double(versions: ['1.0','1.1'])
 		issue2 = double(versions: ['1.2'])
-		idea_formatter = IdeaFormatter.new [['versions', '1.0', '#008000']]
+		idea_formatter = IdeaFormatter.new [{'key' => 'versions', 'value' => '1.0', 'color' => '#008000'}]
 		expect(idea_formatter.for_issue(issue)).to eq('#008000')
 		expect(idea_formatter.for_issue(issue2)).to eq('#E0E0E0')
 	end
@@ -37,7 +37,10 @@ describe IdeaFormatter do
 		issue = double(versions: ['1.0','1.1'], status: "Closed")
 		issue2 = double(versions: ['other'], status: "Closed")
 		
-		idea_formatter = IdeaFormatter.new [['versions', '1.0', '1'], ['status', 'Closed', '2']]
+		idea_formatter = IdeaFormatter.new [
+			{'key' => 'versions', 'value' => '1.0', 'color' => '1'},
+			{'key' => 'status', 'value' => 'Closed', 'color' => '2'}
+		]
 		expect(idea_formatter.for_issue(issue)).to eq('1')
 		expect(idea_formatter.for_issue(issue2)).to eq('2')
 	end

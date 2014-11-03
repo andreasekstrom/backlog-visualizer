@@ -1,0 +1,19 @@
+jira:
+  weburl: https://services.ucr.uu.se/jira/browse
+  search_filename: search_all.json
+
+idea_formatter:
+-
+  key: labels
+  value: customer_accepted
+  color: '#008000'
+-
+  key: status
+  value: Closed
+  color: '#FFFF00'
+- 
+  key: versions
+  value: '1.0'
+  color: '#FF6666'
+
+

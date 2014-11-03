@@ -5,9 +5,9 @@ class IdeaFormatter
 
 	def for_issue issue
 		rule = @config_list.find do |rule|
-			send(rule[0], issue, rule[1])
+			send(rule['key'], issue, rule['value'])
 		end
-		rule ? rule[2] : '#E0E0E0'  
+		rule ? rule['color'] : '#E0E0E0'  
 	end
 
 	private
