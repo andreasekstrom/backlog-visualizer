@@ -1,6 +1,11 @@
+mindmup:
+  original_file: aurff_new2.mup
+
 jira:
   weburl: https://services.ucr.uu.se/jira/browse
-  search_filename: search_all.json
+  rest_search_url: https://services.ucr.uu.se/jira/rest/api/2/search?jql=project%20%3D%20AURFF&maxResults=200
+  username: yourUsername
+  password: yourPassword
 
 idea_formatter:
 -

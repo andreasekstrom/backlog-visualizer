@@ -1,6 +1,7 @@
 #!/usr/bin/ruby
 
-require 'json'
+require 'rubygems'
+require 'httparty'
 require 'yaml'
 require_relative 'mindmap'
 require_relative 'jira_issue'
@@ -24,18 +25,22 @@ def scan_existing_jira_issues_in_map(filename)
 	issues
 end
 
-raise "File: settings.yml is missing." unless File.exists?("settings.yml") 
+raise "File: settings.yml is missing. Copy settings_example.yml." unless File.exists?("settings.yml") 
 settings = YAML.load_file("settings.yml")
 
 JIRA_WEB_URL=settings['jira']['weburl']
 JIRA_ISSUE_LINK_REGEXP = Regexp.escape(JIRA_WEB_URL)
 
-remove_filter = true
+auth = {:username => settings['jira']['username'], :password => settings['jira']['password']}
 
-jira_issues_hash = JSON.parse(File.read(settings['jira']['search_filename']))
+p "Calling JIRA with url: #{settings['jira']['rest_search_url']}..."
+response = HTTParty.get(settings['jira']['rest_search_url'], :basic_auth => auth)
+
+jira_issues_hash = JSON.parse(response.body)
+#p "JIRA-json: #{jira_issues_hash}"
 
 idea_formatter = IdeaFormatter.new settings['idea_formatter']
-mindmap = Mindmap.new(JSON.parse(File.read('aurff_new2.mup')), idea_formatter)
+mindmap = Mindmap.new(JSON.parse(File.read(settings['mindmup']['original_file'])), idea_formatter)
 
 jira_issues = []
 
@@ -45,13 +50,13 @@ jira_issues_hash['issues'].each_with_index do |item, i|
 	jira_issues << JiraIssue.new(item)
 end
 
-existing_jira_issues = scan_existing_jira_issues_in_map('aurff_new2.mup')
+existing_jira_issues = scan_existing_jira_issues_in_map(settings['mindmup']['original_file'])
 p "Existing issues in map: #{existing_jira_issues}"
 
 jira_issues.each_with_index do |item, i|
 	if item.should_be_included?
 		if existing_idea?(item, existing_jira_issues)
-			mindmap.update_existing(item, remove_filter)
+			mindmap.update_existing(item)
 		else
 	 		mindmap.add_to_uncategorized_ideas item
         end
