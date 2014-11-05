@@ -29,11 +29,11 @@ class Mindmap
                   }} 
 	end
 
-	def update_existing(item, remove_filter)
+	def update_existing(item, remove_filter=nil)
 		update_existing_for_idea(@json['ideas'], item, remove_filter)	
 	end
 
-	def update_existing_for_idea(mindmap, item, remove_filter)
+	def update_existing_for_idea(mindmap, item, remove_filter=nil)
 		mindmap.each do |key, idea|
 			if idea.has_key? 'ideas'
 				update_existing_for_idea(idea['ideas'], item, remove_filter)
