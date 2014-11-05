@@ -12,8 +12,8 @@ Basic idea
 1. [Mindmup](https://www.mindmup.com) is a great tool to create and share impact maps
 2. My company uses JIRA as an agile management tool
 3. In my opinion; JIRA does not provide a clear overview where I can show a customer where we are going and what goals we are working on right now
-4. _It would be great to start with a mindmup and automatically add information from JIRA_
-5  _It would be great to be able to sync mindmap with JIRA at any time (without touching nodes that are not connected to a JIRA Story)_ 
+4. __It would be great to start with a mindmup and automatically add information from JIRA__
+5.  __It would be great to be able to sync mindmap with JIRA at any time (without touching nodes that are not connected to a JIRA Story)__ 
 
 Mindmup does not provide an API to change a mindmap. But my 'heureka' moment was when I realized that a Mindmup ["*.mup" file is just a json-file](https://github.com/mindmup/mapjs/wiki/Data-Format). 
 So the basic idea of this tool is to take an existing "*.mup"-file and add status information and links to JIRA in that map, with a single shell-command.
