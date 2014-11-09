@@ -1,0 +1,44 @@
+{
+  "title": "The main goal",
+  "id": 1,
+  "formatVersion": 2,
+  "ideas": {
+    "1": {
+      "title": "Actor 1",
+      "id": 2,
+      "ideas": {
+        "1": {
+          "title": "Impact 1",
+          "id": 4,
+          "ideas": {
+            "1": {
+              "title": "Potential deliverable 1",
+              "id": 6,
+              "ideas": {}
+            },
+            "2": {
+              "title": "Deliverable 2",
+              "id": 8
+            }
+          }
+        },
+        "2": {
+          "title": "Impact 2",
+          "id": 9,
+          "ideas": {
+            "1": {
+              "title": "3",
+              "id": 10,
+              "ideas": {}
+            },
+            "2": {
+              "title": "4",
+              "id": 13
+            }
+          }
+        }
+      }
+    }
+  },
+  "links": []
+}

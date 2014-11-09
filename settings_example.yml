@@ -2,12 +2,13 @@ mindmup:
   original_file: aurff_new2.mup
 
 jira:
-  weburl: https://services.ucr.uu.se/jira/browse
-  rest_search_url: https://services.ucr.uu.se/jira/rest/api/2/search?jql=project%20%3D%20AURFF&maxResults=200
+  weburl: urlYouUseToBrowseJira/browse
+  rest_search_url: theUrlToYourJiraServer/search?jql=aUrlEncodedJqlString
   username: yourUsername
   password: yourPassword
 
-idea_formatter:
+idea_formatter: #Examples below. 
+#Right now labels, status and versions can be coded in different colors (Order matters. First match is used)
 -
   key: labels
   value: customer_accepted
