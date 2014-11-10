@@ -27,6 +27,11 @@ class JiraIssue
 		@json['fields']['fixVersions'].collect { |version| version['name'] }
 	end
 
+	def sprints
+		sprint_array = @json['fields']['customfield_10270'] || []
+		sprint_array.collect {|sprint| sprint.match(/name\=(.*),startDate.*/)[1] } if sprint_array
+	end
+
 	def should_be_included?
 		true
 	end

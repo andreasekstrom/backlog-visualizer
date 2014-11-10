@@ -126,7 +126,10 @@
         },
         "customfield_10000": 1311.0,
         "subtasks": [],
-        "customfield_10270": null,
+        "customfield_10270": [
+        "com.atlassian.greenhopper.service.sprint.Sprint@4790d070[rapidViewId=60,state=CLOSED,name=sprint1,startDate=2014-09-29T13:29:47.306+02:00,endDate=2014-10-09T13:29:00.000+02:00,completeDate=2014-10-12T23:36:54.434+02:00,id=191]",
+        "com.atlassian.greenhopper.service.sprint.Sprint@1592042f[rapidViewId=60,state=ACTIVE,name=sprint including spaces,startDate=2014-11-04T10:03:53.402+01:00,endDate=2014-11-20T10:03:00.000+01:00,completeDate=<null>,id=203]"
+        ],
         "status": {
           "self": "https://jira-url.com/jira/rest/api/2/status/6",
           "description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",

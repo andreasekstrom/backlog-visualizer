@@ -33,6 +33,12 @@ describe IdeaFormatter do
 		expect(idea_formatter.for_issue(issue2)).to eq('#E0E0E0')
 	end
 
+	it "can be configured for sprint" do
+		issue = double(sprints: ['sprint 1','another cool sprint'])
+		idea_formatter = IdeaFormatter.new [{'key' => 'sprints', 'value' => 'sprint 1', 'color' => '#008000'}]
+		expect(idea_formatter.for_issue(issue)).to eq('#008000')
+	end
+
 	it "bases formatting on first match rule" do
 		issue = double(versions: ['1.0','1.1'], status: "Closed")
 		issue2 = double(versions: ['other'], status: "Closed")

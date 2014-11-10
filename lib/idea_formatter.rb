@@ -23,4 +23,7 @@ class IdeaFormatter
 		issue.versions.include? value
 	end
 
+	def sprints(issue, value)
+		issue.sprints.include? value
+	end
 end
