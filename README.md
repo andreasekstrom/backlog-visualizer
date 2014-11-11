@@ -39,6 +39,10 @@ _Example map_
 2. Run command:
 
 		ruby ./lib/jiramap.sh
+
+	or
+
+		ruby ./lib/jiramap.rb --help  # To get available arguments
  
 _Result when script is executed => temp.mup_
 The script creates a node "Uncategorized" and place all Stories from JIRA there.

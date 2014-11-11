@@ -3,6 +3,7 @@
 require 'rubygems'
 require 'httparty'
 require 'yaml'
+require 'optparse'
 require_relative 'mindmap'
 require_relative 'jira_issue'
 require_relative 'idea_formatter'
@@ -25,8 +26,28 @@ def scan_existing_jira_issues_in_map(filename)
 	issues
 end
 
-raise "File: settings.yml is missing. Copy settings_example.yml." unless File.exists?("settings.yml") 
-settings = YAML.load_file("settings.yml")
+#ruby ./lib/jiramap.rb -s settings_another.yml
+
+options = {}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: jiramap.rb [options]"
+
+  opts.on("-s", "--settings name", "Settings file name (if omitted 'settings.yml' is used)") do |s|
+    options[:settings_file] = s
+  end
+end.parse!
+
+p "Parameters: #{options}" 
+
+settings_file_name = options[:settings_file] || 'settings.yml'
+
+unless File.exists?(settings_file_name)
+	p "File: '#{settings_file_name}'' is missing. Please copy/adapt settings_example.yml." 
+	exit 
+end
+
+settings = YAML.load_file(settings_file_name)
 
 JIRA_WEB_URL=settings['jira']['weburl']
 JIRA_ISSUE_LINK_REGEXP = Regexp.escape(JIRA_WEB_URL)
