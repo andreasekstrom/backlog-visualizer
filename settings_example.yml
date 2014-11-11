@@ -2,13 +2,21 @@ mindmup:
   original_file: aurff_new2.mup
 
 jira:
-  weburl: urlYouUseToBrowseJira/browse
-  rest_search_url: theUrlToYourJiraServer/search?jql=aUrlEncodedJqlString
+  weburl: https://url_you_use_to_browse_Jira/browse
+  rest_search_url: https://the_url_to_your_jira_server/search?jql=a_url_encoded_Jql_search_string
   username: yourUsername
   password: yourPassword
 
-idea_formatter: #Examples below. 
-#Right now labels, status and versions can be coded in different colors (Order matters. First match is used)
+# Idea Formatter examples below:
+#   Right now: Labels, status, sprints and versions can be coded in different colors 
+#   Same key can be used multiple times 
+#   Order of keys matter. First match is used
+idea_formatter: 
+
+-
+  key: sprints
+  value: Titan 2014 v. 45-47
+  color: '#BBA0FF'
 -
   key: labels
   value: customer_accepted
