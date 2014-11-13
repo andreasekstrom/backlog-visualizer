@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 require 'rubygems'
 require 'httparty'
@@ -26,18 +26,20 @@ def scan_existing_jira_issues_in_map(filename)
 	issues
 end
 
-#ruby ./lib/jiramap.rb -s settings_another.yml
+def get_in_arguments
+	options = {}
 
-options = {}
+	OptionParser.new do |opts|
+	  opts.banner = "Usage: jiramap.rb [options]"
 
-OptionParser.new do |opts|
-  opts.banner = "Usage: jiramap.rb [options]"
+	  opts.on("-s", "--settings name", "Settings file name (if omitted 'settings.yml' is used)") do |s|
+	    options[:settings_file] = s
+	  end
+	end.parse!
+	options
+end
 
-  opts.on("-s", "--settings name", "Settings file name (if omitted 'settings.yml' is used)") do |s|
-    options[:settings_file] = s
-  end
-end.parse!
-
+options = get_in_arguments
 p "Parameters: #{options}" 
 
 settings_file_name = options[:settings_file] || 'settings.yml'
