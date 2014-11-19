@@ -6,6 +6,10 @@ GEM
       multi_xml (>= 0.5.2)
     json (1.8.1)
     multi_xml (0.5.5)
+    rubytree (0.9.4)
+      json (~> 1.8)
+      structured_warnings (~> 0.1)
+    structured_warnings (0.1.4)
 
 PLATFORMS
   ruby
@@ -13,3 +17,4 @@ PLATFORMS
 DEPENDENCIES
   httparty (~> 0.13.1)
   json (~> 1.8)
+  rubytree (~> 0.9.4)

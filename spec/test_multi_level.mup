@@ -1,0 +1,31 @@
+{
+  "title": "Press Space or double-click to edit",
+  "id": 1,
+  "formatVersion": 2,
+  "ideas": {
+    "1": {
+      "title": "level 1",
+      "id": 2,
+      "ideas": {
+        "1": {
+          "title": "level 2.1",
+          "id": 3,
+          "ideas": {
+            "1": {
+              "title": "level 3.1",
+              "id": 6
+            },
+            "2": {
+              "title": "level 3.2",
+              "id": 7
+            }
+          }
+        },
+        "2": {
+          "title": "level 2.2",
+          "id": 5
+        }
+      }
+    }
+  }
+}
