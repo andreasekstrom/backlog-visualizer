@@ -1,4 +1,4 @@
-require 'tree'
+require_relative 'mindmap_tree_node'
 
 class MindmapTree
 
@@ -14,7 +14,7 @@ class MindmapTree
 		if ideas
 			ideas.each do |key, value|
 				children = value.delete 'ideas'
-				node = Tree::TreeNode.new(key, value)
+				node = MindmapTreeNode.new(key, value)
         update_highest_id(value['id'])
 				root << node 
 				create_node(children, node) if children
@@ -48,7 +48,7 @@ class MindmapTree
     name = find_highest_child_name(@tree)
 
     @highest_id +=1
-    @tree << Tree::TreeNode.new(name, {'title' => title, 'id' => @highest_id})
+    @tree << MindmapTreeNode.new(name, {'title' => title, 'id' => @highest_id})
   end
 
   private

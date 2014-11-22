@@ -22,7 +22,7 @@ describe MindmapTree do
 		expect(mindmap.to_mindmap_json).to eql(example_multilevel_map_json)
 	end
 
-	it "can add a node to first level of map, setting id and name correct" do
+	it "can add a node to first level of map" do
 		mindmap = MindmapTree.new example_multilevel_map_json
 		expect(mindmap.root.first_child.breadth).to eq(1)
 		mindmap.add("another")

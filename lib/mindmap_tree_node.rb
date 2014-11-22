@@ -1,9 +1,15 @@
 require 'tree'
+require_relative 'settings'
 
 class MindmapTreeNode < Tree::TreeNode
-	JIRA_ISSUE_LINK_REGEXP = Regexp.escape("https://services.ucr.uu.se/jira/browse")
+	
+	def initialize name, content
+		weburl =  Settings.instance.hash['jira']['weburl']
+		@jira_issue_link_regexp = Regexp.escape(weburl)
+		super
+	end
 
 	def from_jira?
-		content && content['title'] && !!(content['title'] =~ /#{JIRA_ISSUE_LINK_REGEXP}/)
+		content && content['title'] && !!(content['title'] =~ /#{@jira_issue_link_regexp}/)
 	end
 end
