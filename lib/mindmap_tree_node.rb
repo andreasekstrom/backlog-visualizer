@@ -12,4 +12,11 @@ class MindmapTreeNode < Tree::TreeNode
 	def from_jira?
 		content && content['title'] && !!(content['title'] =~ /#{@jira_issue_link_regexp}/)
 	end
+
+	def jira_issue_key
+		if content && content['title']
+			match = content['title'].match(/#{@jira_issue_link_regexp}\/(.*)/)
+			match[1] if match
+		end	
+	end
 end

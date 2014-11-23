@@ -42,7 +42,54 @@ describe MindmapTree do
 		expect(mindmap.root.last_child.content).to eq({"title" => "another", "id" => 8})
 	end
 
+	it "sets additional attributes when adding a new node" do
+		mindmap = MindmapTree.new example_multilevel_map_json
+		mindmap.add("another", { "style" => {
+                      "background" => "some_color"
+                    }})
+		expect(mindmap.root.last_child.content).to eq({"title" => "another", "id" => 8, "attr" => { "style" => {
+                      "background" => "some_color"
+                    }}})
+	end
+
+	it "keeps track of all nodes with JIRA-url" do
+		Settings.instance.hash = {'jira' => {'weburl' => 'https://jira.com/browse' }}	
+		mindmap = MindmapTree.new
+		mindmap.add("Some story * https://jira.com/browse/AB-21")
+		mindmap.add("another * https://jira.com/browse/BA-31")
+		mindmap.add("no jira")
+		expect(mindmap.jira_nodes.length).to eq(2)
+	end
+
+	describe "#sync_jira_issue" do
+		it "syncs jira issues that is already in map" do
+			Settings.instance.hash = {'jira' => {'weburl' => 'https://jira.com/browse' }, 'idea_formatter' => {}}	
+			mindmap = MindmapTree.new example_jira_map_json
+			#mindmap.jira_nodes.keys.each {|node| p node }
+			issue = double(key: 'SCON-307', title: 'Changed name * https://jira.com/browse/SCON-307', status: 'Changed')
+			mindmap.sync_jira_issue issue
+			expect(mindmap.jira_nodes.length).to eq(2)
+			expect(mindmap.jira_nodes['SCON-307'].content['title']).to eq('Changed name * https://jira.com/browse/SCON-307')
+		end
+
+		it "adds a new node for issues that are not in map" do
+			Settings.instance.hash = {'jira' => {'weburl' => 'https://jira.com/browse' }, 'idea_formatter' => {}}	
+			mindmap = MindmapTree.new example_jira_map_json
+			issue = double(key: 'NEW-1', title: 'Changed name * https://jira.com/browse/NEW-1', status: 'In Development')
+			mindmap.sync_jira_issue issue
+			expect(mindmap.jira_nodes.length).to eq(3)
+			#mindmap.jira_nodes.keys.each {|node| p node }
+			expect(mindmap.jira_nodes['NEW-1'].content['title']).to eq('Changed name * https://jira.com/browse/NEW-1')
+			
+		end
+	end
+
+	private
 	def example_multilevel_map_json
 		JSON.parse(File.read('spec/test_multi_level.mup'))
+	end
+
+	def example_jira_map_json
+		JSON.parse(File.read('spec/test_jira.mup'))
 	end
 end
