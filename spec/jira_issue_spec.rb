@@ -17,6 +17,11 @@ describe JiraIssue do
 		expect(issue.status).to eq("Closed")
 	end
 
+	it "has an issuetype" do
+		issue = JiraIssue.new JSON.parse(File.read('spec/jira_search_test.json'))['issues'][0]
+		expect(issue.issuetype).to eq("Bug")
+	end
+
 	it "has labels" do
 		issue = JiraIssue.new JSON.parse(File.read('spec/jira_search_test.json'))['issues'][0] 
 		expect(issue.labels).to include("fruit")
@@ -46,6 +51,4 @@ describe JiraIssue do
 		issue = JiraIssue.new JSON.parse(File.read('spec/jira_search_test.json'))['issues'][0] 
 		expect(issue.should_be_included?).to eq(true)
 	end
-
-
 end

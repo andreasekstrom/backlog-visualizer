@@ -19,6 +19,10 @@ class JiraIssue
 		@json['fields']['status']['name']
 	end
 
+	def issuetype
+		@json['fields']['issuetype']['name']
+	end
+
 	def labels
 		@json['fields']['labels']
 	end
@@ -33,6 +37,6 @@ class JiraIssue
 	end
 
 	def should_be_included?
-		true
+		issuetype != 'Technical task' #hardcoded for now
 	end
 end
