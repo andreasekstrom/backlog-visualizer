@@ -30,6 +30,17 @@ describe MindmapTree do
 		#mindmap.root.print_tree
 	end
 
+	it "can add a node to any part of tree" do
+		mindmap = MindmapTree.new example_multilevel_map_json
+		expect(mindmap.root.first_child.breadth).to eq(1)
+		expect(mindmap.root.first_child.breadth).to eq(1)
+		node = mindmap.root.first_child.first_child
+		expect(node.content['title']).to eq('level 2.1')
+		mindmap.add_to_node(node, "another")
+		expect(mindmap.root.first_child.breadth).to eq(1)
+		expect(mindmap.root.first_child.first_child.breadth).to eq(2)
+	end
+
 	it "sets name correct when adding a new node" do
 		mindmap = MindmapTree.new example_multilevel_map_json
 		mindmap.add("another")
@@ -79,8 +90,15 @@ describe MindmapTree do
 			mindmap.sync_jira_issue issue
 			expect(mindmap.jira_nodes.length).to eq(3)
 			#mindmap.jira_nodes.keys.each {|node| p node }
-			expect(mindmap.jira_nodes['NEW-1'].content['title']).to eq('Changed name * https://jira.com/browse/NEW-1')
-			
+			expect(mindmap.jira_nodes['NEW-1'].content['title']).to eq('Changed name * https://jira.com/browse/NEW-1')			
+		end
+
+		it "unmapped issues are added under Uncategorized" do
+			Settings.instance.hash = {'jira' => {'weburl' => 'https://jira.com/browse' }, 'idea_formatter' => {}}	
+			mindmap = MindmapTree.new example_jira_map_json
+			issue = double(key: 'NEW-1', title: 'Changed name * https://jira.com/browse/NEW-1', status: 'In Development')
+			mindmap.sync_jira_issue issue
+			expect(mindmap.jira_nodes['NEW-1'].parent.content['title']).to eq("Uncategorized")
 		end
 	end
 

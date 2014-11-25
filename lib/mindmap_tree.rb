@@ -6,7 +6,7 @@ class MindmapTree
   attr_accessor :jira_nodes
 
 	def initialize(hash={})
-    @idea_formatter = IdeaFormatter.new(Settings.instance.hash['idea_formatter'])
+    @idea_formatter = IdeaFormatter.new(Settings.instance.hash['idea_formatter'] || [])
 		@highest_id = 1
     @jira_nodes = {}
     ideas = hash.delete 'ideas'
@@ -51,14 +51,19 @@ class MindmapTree
 	end
 
   def add(title, attributes = nil)
-    name = find_highest_child_name(@tree)
+    add_to_node(@tree, title, attributes)
+  end
+
+  def add_to_node(root, title, attributes = nil)
+    name = find_highest_child_name(root)
 
     @highest_id +=1
     value = {'title' => title, 'id' => @highest_id}
     value["attr"] = attributes if attributes 
     node = MindmapTreeNode.new(name, value)
-    @tree << node
+    root << node
     store_jira_node(node) if node.from_jira?
+    node
   end
 
   def sync_jira_issue(issue)
@@ -73,7 +78,7 @@ class MindmapTree
       existing.content['title'] = issue.title
       existing.content['attr'] = attr_hash
     else
-      add(issue.title, attr_hash)
+      add_to_node(find_or_create_uncategorized_node, issue.title, attr_hash)
     end
   end
 
@@ -90,5 +95,9 @@ class MindmapTree
 
   def store_jira_node(node)
     @jira_nodes[node.jira_issue_key] = node
+  end
+
+  def find_or_create_uncategorized_node
+    @uncategorized_node ||= add("Uncategorized")
   end
 end
