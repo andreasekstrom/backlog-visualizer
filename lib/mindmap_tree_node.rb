@@ -4,8 +4,10 @@ require_relative 'settings'
 class MindmapTreeNode < Tree::TreeNode
 	
 	def initialize name, content
-		weburl =  Settings.instance.hash['jira']['weburl']
-		@jira_issue_link_regexp = Regexp.escape(weburl)
+		if Settings.instance.hash['jira']
+			weburl =  Settings.instance.hash['jira']['weburl']  
+			@jira_issue_link_regexp = Regexp.escape(weburl)  
+		end
 		super
 	end
 

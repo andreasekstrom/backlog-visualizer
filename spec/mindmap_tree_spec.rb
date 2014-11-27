@@ -100,6 +100,18 @@ describe MindmapTree do
 			mindmap.sync_jira_issue issue
 			expect(mindmap.jira_nodes['NEW-1'].parent.content['title']).to eq("Uncategorized")
 		end
+
+		it "can add idea_formatter legend nodes" do
+			Settings.instance.hash = {'idea_formatter' => [
+				{'key' => 'versions', 'value' => '1.0', 'color' => '#008000'},
+				{'key' => 'status', 'value' => 'Closed', 'color' => '#FF0000'}
+			]}
+			
+			mindmap = MindmapTree.new example_jira_map_json
+			mindmap.add_legend_nodes
+			expect(mindmap.root.last_child.content['title']).to eq("Legend")
+			
+		end
 	end
 
 	private

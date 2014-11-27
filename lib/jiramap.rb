@@ -69,6 +69,7 @@ jira_issues.each_with_index do |item, i|
 		mindmap.sync_jira_issue(item)
     end
 end
+mindmap.add_legend_nodes
 
 File.open("temp.mup","w") do |f|
   f.write(mindmap.to_mindmap_json.to_json)

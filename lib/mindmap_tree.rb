@@ -67,18 +67,20 @@ class MindmapTree
   end
 
   def sync_jira_issue(issue)
-    attr_hash = {
-      "style" => {
-          "background" => @idea_formatter.for_issue(issue)
-      }
-    }   
 
     existing = @jira_nodes[issue.key]
     if existing
       existing.content['title'] = issue.title
-      existing.content['attr'] = attr_hash
+      existing.content['attr'] = style_attribute_for(@idea_formatter.for_issue(issue)) 
     else
-      add_to_node(find_or_create_uncategorized_node, issue.title, attr_hash)
+      add_to_node(find_or_create_uncategorized_node, issue.title, style_attribute_for(issue))
+    end
+  end
+
+  def add_legend_nodes
+    legend = add("Legend")
+    Settings.instance.hash['idea_formatter'].each do |item|
+      add_to_node(legend, "#{item['key']} = #{item['value']}", style_attribute_for(item['color']))
     end
   end
 
@@ -99,5 +101,13 @@ class MindmapTree
 
   def find_or_create_uncategorized_node
     @uncategorized_node ||= add("Uncategorized")
+  end
+
+  def style_attribute_for(color)
+    {
+      "style" => {
+          "background" => color
+      }
+    }   
   end
 end
