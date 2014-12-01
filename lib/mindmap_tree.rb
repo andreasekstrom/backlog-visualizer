@@ -67,13 +67,13 @@ class MindmapTree
   end
 
   def sync_jira_issue(issue)
-
+    attributes = style_attribute_for(@idea_formatter.for_issue(issue)) 
     existing = @jira_nodes[issue.key]
     if existing
       existing.content['title'] = issue.title
-      existing.content['attr'] = style_attribute_for(@idea_formatter.for_issue(issue)) 
+      existing.content['attr'] = attributes 
     else
-      add_to_node(find_or_create_uncategorized_node, issue.title, style_attribute_for(issue))
+      add_to_node(find_or_create_uncategorized_node, issue.title, attributes)
     end
   end
 
