@@ -33,12 +33,13 @@ describe MindmapTree do
 	it "can add a node to any part of tree" do
 		mindmap = MindmapTree.new example_multilevel_map_json
 		expect(mindmap.root.first_child.breadth).to eq(1)
-		expect(mindmap.root.first_child.breadth).to eq(1)
+		expect(mindmap.root.first_child.first_child.breadth).to eq(2)
 		node = mindmap.root.first_child.first_child
 		expect(node.content['title']).to eq('level 2.1')
 		mindmap.add_to_node(node, "another")
 		expect(mindmap.root.first_child.breadth).to eq(1)
 		expect(mindmap.root.first_child.first_child.breadth).to eq(2)
+		expect(mindmap.root.first_child.first_child.first_child.breadth).to eq(3)
 	end
 
 	it "sets name correct when adding a new node" do
@@ -101,16 +102,29 @@ describe MindmapTree do
 			expect(mindmap.jira_nodes['NEW-1'].parent.content['title']).to eq("Uncategorized")
 		end
 
-		it "can add idea_formatter legend nodes" do
-			Settings.instance.hash = {'idea_formatter' => [
-				{'key' => 'versions', 'value' => '1.0', 'color' => '#008000'},
-				{'key' => 'status', 'value' => 'Closed', 'color' => '#FF0000'}
-			]}
-			
-			mindmap = MindmapTree.new example_jira_map_json
-			mindmap.add_legend_nodes
-			expect(mindmap.root.last_child.content['title']).to eq("Legend")
-			
+		describe "#add_legend_nodes" do
+			it "adds legend nodes if it does not exist" do
+				Settings.instance.hash = {'idea_formatter' => [
+					{'key' => 'versions', 'value' => '1.0', 'color' => '#008000'},
+					{'key' => 'status', 'value' => 'Closed', 'color' => '#FF0000'}
+				]}
+
+				mindmap = MindmapTree.new example_jira_map_json
+				mindmap.add_legend_nodes
+				expect(mindmap.root.last_child.content['title']).to eq("Legend")
+			end
+
+			it "removes old before adding a new" do
+				Settings.instance.hash = {'idea_formatter' => [
+					{'key' => 'versions', 'value' => '1.0', 'color' => '#008000'},
+					{'key' => 'status', 'value' => 'Closed', 'color' => '#FF0000'}
+				]}
+
+				mindmap = MindmapTree.new map_with_existing_legend_node
+				expect(mindmap.root.first_child.breadth).to eq(1)
+				mindmap.add_legend_nodes
+				expect(mindmap.root.first_child.breadth).to eq(1)
+			end
 		end
 	end
 
@@ -121,5 +135,25 @@ describe MindmapTree do
 
 	def example_jira_map_json
 		JSON.parse(File.read('spec/test_jira.mup'))
+	end
+
+	def map_with_existing_legend_node
+		{
+  		"title" => "Press Space or double-click to edit",
+  		"id" => 1,
+  		"formatVersion" => 2,
+  		"ideas" => {
+    		"1" => {
+      		"title" => "Legend",
+      		"id" => 2,
+      		"ideas" => {
+    				"1" => {
+    					"title" => "something",
+    					"id" => 3
+    				}
+      		}
+      	}
+      }
+    }
 	end
 end

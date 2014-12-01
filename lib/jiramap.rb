@@ -57,7 +57,7 @@ jira_issues = []
 
 p "JIRA-issues to sync:"
 jira_issues_hash['issues'].each_with_index do |item, i|
-	p "#{i}: #{item['fields']['summary']}"
+	p "#{i}: #{item['key']} - #{item['fields']['summary']}"
 	jira_issues << JiraIssue.new(item)
 end
 

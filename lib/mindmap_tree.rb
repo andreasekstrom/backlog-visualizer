@@ -78,7 +78,7 @@ class MindmapTree
   end
 
   def add_legend_nodes
-    legend = add("Legend")
+    legend = reset_or_create_legend_node
     Settings.instance.hash['idea_formatter'].each do |item|
       add_to_node(legend, "#{item['key']} = #{item['value']}", style_attribute_for(item['color']))
     end
@@ -100,7 +100,14 @@ class MindmapTree
   end
 
   def find_or_create_uncategorized_node
-    @uncategorized_node ||= add("Uncategorized")
+    uncategorized_nodes = @tree.children.select {|child| child.content['title'] == 'Uncategorized'}
+    uncategorized_nodes.empty? ?  add("Uncategorized") : uncategorized_nodes[0]
+  end
+
+  def reset_or_create_legend_node
+    legend_nodes = @tree.children.select {|child| child.content['title'] == 'Legend'}
+    node = legend_nodes.empty? ?  add("Legend") : legend_nodes[0]
+    node.remove_all!
   end
 
   def style_attribute_for(color)
