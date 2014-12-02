@@ -35,7 +35,7 @@ _Example map_
 
 ## Now you are ready for first sync
 
-1. Create a settings.yml file (copy settings_example.yml and adapt to your needs, i.e. configure JIRA-search url, credentials, choose colors for JIRA-statuses etc.)
+1. Create a settings.yml file (copy [settings_example.yml](settings_example.yml), [settings_jira_credentials_example.yml](settings_jira_credentials_example.yml) and adapt to your needs, i.e. configure JIRA-search url, credentials, choose colors for JIRA-statuses etc.)
 2. Run command:
 
 		ruby ./lib/jiramap.sh

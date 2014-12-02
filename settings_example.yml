@@ -1,11 +1,9 @@
 mindmup:
-  original_file: aurff_new2.mup
+  original_file: your_original_map.mup
 
 jira:
   weburl: https://url_you_use_to_browse_Jira/browse
   rest_search_url: https://the_url_to_your_jira_server/search?jql=a_url_encoded_Jql_search_string
-  username: yourUsername
-  password: yourPassword
 
 # Idea Formatter examples below:
 #   Right now: Labels, status, sprints and versions can be coded in different colors 
