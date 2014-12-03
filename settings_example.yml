@@ -5,12 +5,18 @@ jira:
   weburl: https://url_you_use_to_browse_Jira/browse
   rest_search_url: https://the_url_to_your_jira_server/search?jql=a_url_encoded_Jql_search_string
 
+  config:
+    sprint: customfield_10270   # Sprint is a customfield in JIRA, change it to customfiled used in your installation
+
 # Idea Formatter examples below:
-#   Right now: Labels, status, sprints and versions can be coded in different colors 
+#   The following can be can be coded in different colors: 
+#   * labels
+#   * status
+#   * sprints
+#   * versions 
 #   Same key can be used multiple times 
 #   Order of keys matter. First match is used
 idea_formatter: 
-
 -
   key: sprints
   value: Titan 2014 v. 45-47

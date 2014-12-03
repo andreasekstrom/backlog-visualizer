@@ -2,5 +2,9 @@ require 'singleton'
 class Settings
 	include Singleton
 
-	attr_accessor :hash
+	attr_writer :hash
+
+	def hash
+		@hash || {}
+	end
 end

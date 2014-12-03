@@ -32,7 +32,7 @@ class JiraIssue
 	end
 
 	def sprints
-		sprint_array = @json['fields']['customfield_10270'] || []
+		sprint_array = @json['fields'][Settings.instance.hash['jira']['config']['sprint']] || []
 		sprint_array.collect {|sprint| sprint.match(/name\=(.*),startDate.*/)[1] } if sprint_array
 	end
 

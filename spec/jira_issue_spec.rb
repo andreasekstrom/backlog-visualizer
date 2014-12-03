@@ -33,6 +33,7 @@ describe JiraIssue do
 	end
 
 	it "tells sprint that issue belongs to" do
+		Settings.instance.hash =  { 'jira' => { 'config' => { 'sprint' => 'customfield_10270' }}}
 		issue = JiraIssue.new JSON.parse(File.read('spec/jira_search_test.json'))['issues'][0]
 		expect(issue.sprints).to include("sprint1")
 		expect(issue.sprints).to include("sprint including spaces")
@@ -40,11 +41,11 @@ describe JiraIssue do
 	end
 
 	it "handle issues that do not belong to any sprints" do
+		Settings.instance.hash =  { 'jira' => { 'config' => { 'sprint' => 'customfield_10270' }}}
 		json = JSON.parse(File.read('spec/jira_search_test.json'))['issues'][0]
-		json['fields']['customfield_10270'] = nil
+		json['fields'][Settings.instance.hash['jira']['config']['sprint']] = nil
 		issue = JiraIssue.new json
 		expect(issue.sprints).to eq []
-		
 	end
 
 	it "can tell if issue should be included" do
