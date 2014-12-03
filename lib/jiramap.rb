@@ -15,12 +15,16 @@ def get_in_arguments
 	OptionParser.new do |opts|
 	  opts.banner = "Usage: jiramap.rb [options]"
 
-	  opts.on("-s", "--settings name", "Settings file name (if omitted 'settings.yml' is used)") do |s|
+	  opts.on("-s", "--settings filename", "Settings file name (if omitted 'settings.yml' is used)") do |s|
 	    options[:settings_file] = s
 	  end
 
 	  opts.on("-l", "--legend", "Create a legend node that describes colors used in map") do |l|
 	  	options[:legend] = l
+	  end
+
+	  opts.on("-o", "--out filename", "Output filename (if ommitted 'temp.mup' will be used) ") do |o|
+	  	options[:output_file] = o
 	  end
 	end.parse!
 	options
@@ -75,7 +79,9 @@ end
 
 mindmap.add_legend_nodes if options[:legend]
 
-File.open("temp.mup","w") do |f|
+output_filename = options[:output_file] || 'temp'
+
+File.open("#{output_filename}.mup","w") do |f|
   f.write(mindmap.to_mindmap_json.to_json)
 end
 
