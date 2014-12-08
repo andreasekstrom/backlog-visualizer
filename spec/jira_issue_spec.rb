@@ -8,8 +8,9 @@ describe JiraIssue do
 	end
 
 	it "has a title containing text + url for issue, separated by a *" do
+		Settings.instance.hash = {'jira' => {'weburl' => 'https://jira.com/browse' }}	
 		issue = JiraIssue.new JSON.parse(File.read('spec/jira_search_test.json'))['issues'][0] 
-		expect(issue.title).to eq("Om jag sparar apelsiner så lagras päron * https://services.ucr.uu.se/jira/browse/TEST-21")
+		expect(issue.title).to eq("Om jag sparar apelsiner så lagras päron * https://jira.com/browse/TEST-21")
 	end
 
 	it "has a status" do

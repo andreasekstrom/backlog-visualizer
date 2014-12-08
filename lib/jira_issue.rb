@@ -1,5 +1,4 @@
 class JiraIssue
-	JIRA_WEB_URL="https://services.ucr.uu.se/jira/browse"
 
 	attr_accessor :json
 
@@ -12,7 +11,7 @@ class JiraIssue
 	end
 
 	def title 
-		"#{@json['fields']['summary']} * #{JIRA_WEB_URL}/#{key}"
+		"#{@json['fields']['summary']} * #{Settings.instance.hash['jira']['weburl']}/#{key}"
 	end
 
 	def status
