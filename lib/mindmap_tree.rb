@@ -66,8 +66,9 @@ class MindmapTree
     node
   end
 
-  def sync_jira_issue(issue)
-    attributes = style_attribute_for(@idea_formatter.for_issue(issue)) 
+  def sync_jira_issue(issue, use_storypoints = false)
+    attributes = style_attribute_for(@idea_formatter.for_issue(issue))
+    attributes.merge!(storypoints_attributes_for(issue)) if use_storypoints
     existing = @jira_nodes[issue.key]
     if existing
       existing.content['title'] = issue.title
@@ -116,5 +117,13 @@ class MindmapTree
           "background" => color
       }
     }   
+  end
+
+  def storypoints_attributes_for(issue)
+    {
+      "measurements" => {
+        "storypoints" => issue.storypoints.to_s
+      }
+    }
   end
 end

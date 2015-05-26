@@ -26,6 +26,10 @@ def get_in_arguments
 	  opts.on("-o", "--out filename", "Output filename (if ommitted 'temp.mup' will be used) ") do |o|
 	  	options[:output_file] = o
 	  end
+
+	  opts.on("-m", "--add-measurement", "Add measurement 'storypoints' to JIRA-nodes") do |m|
+	  	options[:measurement] = m
+	  end
 	end.parse!
 	options
 end
@@ -73,7 +77,7 @@ mindmap = MindmapTree.new JSON.parse(File.read(settings['mindmup']['original_fil
 
 jira_issues.each_with_index do |item, i|
 	if item.should_be_included?
-		mindmap.sync_jira_issue(item)
+		mindmap.sync_jira_issue(item, options[:measurement])
     end
 end
 

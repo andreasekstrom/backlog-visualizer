@@ -33,6 +33,12 @@ describe JiraIssue do
 		expect(issue.versions).to include("1.0") 
 	end
 
+	it "has storypoints" do
+		Settings.instance.hash =  { 'jira' => { 'config' => { 'storypoints' => 'customfield_10043' }}}
+		issue = JiraIssue.new JSON.parse(File.read('spec/jira_search_test.json'))['issues'][0]
+		expect(issue.storypoints).to eq(5)
+	end
+
 	it "tells sprint that issue belongs to" do
 		Settings.instance.hash =  { 'jira' => { 'config' => { 'sprint' => 'customfield_10270' }}}
 		issue = JiraIssue.new JSON.parse(File.read('spec/jira_search_test.json'))['issues'][0]

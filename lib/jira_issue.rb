@@ -35,6 +35,10 @@ class JiraIssue
 		sprint_array.collect {|sprint| sprint.match(/name\=(.*),startDate.*/)[1] } if sprint_array
 	end
 
+	def storypoints
+		@json['fields'][Settings.instance.hash['jira']['config']['storypoints']] 
+	end
+
 	def should_be_included?
 		issuetype != 'Technical task' #hardcoded for now
 	end
