@@ -50,6 +50,7 @@ _Example map_
     	-s, --settings filename          Settings file name (if omitted 'settings.yml' is used)
     	-l, --legend                     Create a legend node that describes colors used in map
     	-o, --out filename               Output filename (if ommitted 'temp.mup' will be used)
+    	-m, --add-measurement            Add measurement 'storypoints' to JIRA-nodes
  
 The script creates a node "Uncategorized" and place all Stories from JIRA there.
 
@@ -62,6 +63,12 @@ _Example where initial ideas has been replaced with corresponding ideas in JIRA_
 
 Whenever you want to resync the map with current JIRA status, just run the command again (with the last output file as "original file" in settings.yml). 
 If the script finds existing JIRA-url:s in map, it will update those nodes instead of creting new nodes in "Uncategorized".
+
+If command line option -m is used you can get estimates (storypoints) from JIRA too, agregated on each level in map.
+
+_Example with storypoints_
+
+![](docs/images/map_with_storypoints.png)
 
 ### Tests
 

@@ -6,7 +6,8 @@ jira:
   rest_search_url: https://the_url_to_your_jira_server/search?jql=a_url_encoded_Jql_search_string
 
   config:
-    sprint: customfield_10270   # Sprint is a customfield in JIRA, change it to customfiled used in your installation
+    sprint: customfield_10270      # Sprint is a customfield in JIRA, change it to ID of custom field used in your installation
+    storypoints: customfield_10043 # Storypoints is a customfield in JIRA, change it to ID of custom field used in your installation 
 
 # Idea Formatter examples below:
 #   The following can be can be coded in different colors: 
