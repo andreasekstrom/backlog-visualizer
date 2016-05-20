@@ -71,10 +71,10 @@ class MindmapTree
     attributes.merge!(storypoints_attributes_for(issue)) if use_storypoints
     existing = @jira_nodes[issue.key]
     if existing
-      existing.content['title'] = issue.title
+      existing.content['title'] = "#{issue.key} - #{issue.title}"
       existing.content['attr'] = attributes 
     else
-      add_to_node(find_or_create_uncategorized_node, issue.title, attributes)
+      add_to_node(find_or_create_uncategorized_node, "#{issue.key} - #{issue.title}", attributes)
     end
   end
 
