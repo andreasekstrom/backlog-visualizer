@@ -14,7 +14,8 @@ jira:
 #   * labels
 #   * status
 #   * sprints
-#   * versions 
+#   * versions
+#   * issuetype
 #   Same key can be used multiple times 
 #   Order of keys matter. First match is used
 idea_formatter: 
@@ -34,5 +35,9 @@ idea_formatter:
   key: versions
   value: '1.0'
   color: '#FF6666'
+-
+  key: issuetype
+  value: 'Epic'
+  color: '#00FFFF'
 
 

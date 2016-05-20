@@ -33,6 +33,12 @@ describe IdeaFormatter do
 		expect(idea_formatter.for_issue(issue2)).to eq('#E0E0E0')
 	end
 
+	it "can be configured for issuetype" do
+		issue = double(issuetype: "Epic")
+		idea_formatter = IdeaFormatter.new [{'key' => 'issuetype', 'value' => 'Epic', 'color' => '#008000'}]
+		expect(idea_formatter.for_issue(issue)).to eq('#008000')
+	end
+
 	it "can be configured for sprint" do
 		issue = double(sprints: ['sprint 1','another cool sprint'])
 		idea_formatter = IdeaFormatter.new [{'key' => 'sprints', 'value' => 'sprint 1', 'color' => '#008000'}]
