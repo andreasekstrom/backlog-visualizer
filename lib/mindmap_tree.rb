@@ -71,7 +71,7 @@ class MindmapTree
     attributes.merge!(storypoints_attributes_for(issue)) if use_storypoints
     existing = @jira_nodes[issue.key]
     title_to_use = "#{issue.key} - #{issue.title}"
-    title_to_use << " (#{issue.epic_link})" if show_epic
+    title_to_use << " (#{issue.epic_link})" if show_epic && issue.epic_link
     if existing
       existing.content['title'] = title_to_use
       existing.content['attr'] = attributes 
