@@ -29,7 +29,11 @@ def get_in_arguments
 
 	  opts.on("-m", "--add-measurement", "Add measurement 'storypoints' to JIRA-nodes") do |m|
 	  	options[:measurement] = m
-	  end
+		end
+
+		opts.on("-e", "--show-epic-links", "Show key of Epic on each node") do |e|
+			options[:show_epic] = e
+		end
 	end.parse!
 	options
 end
@@ -77,7 +81,7 @@ mindmap = MindmapTree.new JSON.parse(File.read(settings['mindmup']['original_fil
 
 jira_issues.each_with_index do |item, i|
 	if item.should_be_included?
-		mindmap.sync_jira_issue(item, options[:measurement])
+		mindmap.sync_jira_issue(item, options[:measurement], options[:show_epic])
     end
 end
 

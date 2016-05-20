@@ -37,7 +37,13 @@ describe JiraIssue do
 		Settings.instance.hash =  { 'jira' => { 'config' => { 'storypoints' => 'customfield_10043' }}}
 		issue = JiraIssue.new JSON.parse(File.read('spec/jira_search_test.json'))['issues'][0]
 		expect(issue.storypoints).to eq(5)
-	end
+  end
+
+  it "has epic link" do
+		Settings.instance.hash =  { 'jira' => { 'config' => { 'epic_link' => 'customfield_10381' }}}
+		issue = JiraIssue.new JSON.parse(File.read('spec/jira_search_test.json'))['issues'][0]
+		expect(issue.epic_link).to eq("TEST-100")
+  end
 
 	it "tells sprint that issue belongs to" do
 		Settings.instance.hash =  { 'jira' => { 'config' => { 'sprint' => 'customfield_10270' }}}

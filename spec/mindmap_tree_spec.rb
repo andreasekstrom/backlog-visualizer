@@ -92,7 +92,16 @@ describe MindmapTree do
 			expect(mindmap.jira_nodes.length).to eq(3)
 			#mindmap.jira_nodes.keys.each {|node| p node }
 			expect(mindmap.jira_nodes['NEW-1'].content['title']).to eq('NEW-1 - Changed name * https://jira.com/browse/NEW-1')			
-		end
+    end
+
+    it "adds epic_link to title if configured to do so" do
+			Settings.instance.hash = {'jira' => {'weburl' => 'https://jira.com/browse' }, 'idea_formatter' => {}}
+			mindmap = MindmapTree.new example_jira_map_json
+			issue = double(key: 'NEW-1', title: 'Changed name * https://jira.com/browse/NEW-1', status: 'In Development', epic_link: "EPIC-1")
+			mindmap.sync_jira_issue issue, false, true   # show_epic=true
+			expect(mindmap.jira_nodes.length).to eq(3)
+			expect(mindmap.jira_nodes['NEW-1'].content['title']).to eq('NEW-1 - Changed name * https://jira.com/browse/NEW-1 (EPIC-1)')
+    end
 
 		it "unmapped issues are added under Uncategorized" do
 			Settings.instance.hash = {'jira' => {'weburl' => 'https://jira.com/browse' }, 'idea_formatter' => {}}	

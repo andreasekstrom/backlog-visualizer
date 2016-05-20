@@ -48,7 +48,7 @@
         ],
         "resolutiondate": "2010-02-05T13:50:25.000+0100",
         "timespent": null,
-        "customfield_10381": null,
+        "customfield_10381": "TEST-100",
         "reporter": {
           "self": "https://jira-url.com/jira/rest/api/2/user?username=a.user%40ucr.uu.se",
           "name": "a.user@ucr.uu.se",

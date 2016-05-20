@@ -66,15 +66,17 @@ class MindmapTree
     node
   end
 
-  def sync_jira_issue(issue, use_storypoints = false)
+  def sync_jira_issue(issue, use_storypoints = false, show_epic=false)
     attributes = style_attribute_for(@idea_formatter.for_issue(issue))
     attributes.merge!(storypoints_attributes_for(issue)) if use_storypoints
     existing = @jira_nodes[issue.key]
+    title_to_use = "#{issue.key} - #{issue.title}"
+    title_to_use << " (#{issue.epic_link})" if show_epic
     if existing
-      existing.content['title'] = "#{issue.key} - #{issue.title}"
+      existing.content['title'] = title_to_use
       existing.content['attr'] = attributes 
     else
-      add_to_node(find_or_create_uncategorized_node, "#{issue.key} - #{issue.title}", attributes)
+      add_to_node(find_or_create_uncategorized_node, title_to_use, attributes)
     end
   end
 
