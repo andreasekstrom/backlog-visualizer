@@ -81,7 +81,7 @@ describe MindmapTree do
 			issue = double(key: 'SCON-307', title: 'Changed name * https://jira.com/browse/SCON-307', status: 'Changed')
 			mindmap.sync_jira_issue issue
 			expect(mindmap.jira_nodes.length).to eq(2)
-			expect(mindmap.jira_nodes['SCON-307'].content['title']).to eq('Changed name * https://jira.com/browse/SCON-307')
+			expect(mindmap.jira_nodes['SCON-307'].content['title']).to eq('SCON-307 - Changed name * https://jira.com/browse/SCON-307')
 		end
 
 		it "adds a new node for issues that are not in map" do
@@ -91,7 +91,25 @@ describe MindmapTree do
 			mindmap.sync_jira_issue issue
 			expect(mindmap.jira_nodes.length).to eq(3)
 			#mindmap.jira_nodes.keys.each {|node| p node }
-			expect(mindmap.jira_nodes['NEW-1'].content['title']).to eq('Changed name * https://jira.com/browse/NEW-1')			
+			expect(mindmap.jira_nodes['NEW-1'].content['title']).to eq('NEW-1 - Changed name * https://jira.com/browse/NEW-1')			
+    end
+
+    it "adds epic_link to title if configured to do so" do
+			Settings.instance.hash = {'jira' => {'weburl' => 'https://jira.com/browse' }, 'idea_formatter' => {}}
+			mindmap = MindmapTree.new example_jira_map_json
+			issue = double(key: 'NEW-1', title: 'Changed name * https://jira.com/browse/NEW-1', status: 'In Development', epic_link: "EPIC-1")
+			mindmap.sync_jira_issue issue, false, true   # show_epic=true
+			expect(mindmap.jira_nodes.length).to eq(3)
+			expect(mindmap.jira_nodes['NEW-1'].content['title']).to eq('NEW-1 - Changed name * https://jira.com/browse/NEW-1 (EPIC-1)')
+    end
+
+		it "does not add epic_link in () to title if item has no epic" do
+			Settings.instance.hash = {'jira' => {'weburl' => 'https://jira.com/browse' }, 'idea_formatter' => {}}
+			mindmap = MindmapTree.new example_jira_map_json
+			issue = double(key: 'NEW-1', title: 'Changed name * https://jira.com/browse/NEW-1', status: 'In Development', epic_link: nil)
+			mindmap.sync_jira_issue issue, false, true   # show_epic=true
+			expect(mindmap.jira_nodes.length).to eq(3)
+			expect(mindmap.jira_nodes['NEW-1'].content['title']).to eq('NEW-1 - Changed name * https://jira.com/browse/NEW-1')
 		end
 
 		it "unmapped issues are added under Uncategorized" do

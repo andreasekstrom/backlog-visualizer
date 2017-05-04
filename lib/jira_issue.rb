@@ -39,6 +39,10 @@ class JiraIssue
 		@json['fields'][Settings.instance.hash['jira']['config']['storypoints']] 
 	end
 
+	def epic_link
+		@json['fields'][Settings.instance.hash['jira']['config']['epic_link']]
+	end
+
 	def should_be_included?
 		issuetype != 'Technical task' #hardcoded for now
 	end

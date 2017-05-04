@@ -6,7 +6,7 @@ class MindmapTreeNode < Tree::TreeNode
 	def initialize name, content
 		if Settings.instance.hash['jira']
 			weburl =  Settings.instance.hash['jira']['weburl']  
-			@jira_issue_link_regexp = Regexp.escape(weburl)  
+			@jira_issue_link_regexp = Regexp.quote(weburl)
 		end
 		super
 	end
@@ -17,7 +17,7 @@ class MindmapTreeNode < Tree::TreeNode
 
 	def jira_issue_key
 		if content && content['title']
-			match = content['title'].match(/#{@jira_issue_link_regexp}\/(.*)/)
+			match = content['title'].match(/#{@jira_issue_link_regexp}\/(\w+\-\w+)(.*)/)
 			match[1] if match
 		end	
 	end

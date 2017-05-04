@@ -26,4 +26,8 @@ class IdeaFormatter
 	def sprints(issue, value)
 		issue.sprints.include? value
 	end
+
+	def issuetype(issue, value)
+		issue.issuetype == value
+	end
 end
